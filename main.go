@@ -57,7 +57,10 @@ func main() {
 		fmt.Println(fmt.Errorf("File Opening error: %s", err))
 		os.Exit(1)
 	}
-	var s PGNFileScanner
-	s.Scan(strings.NewReader(string(b)))
-	fmt.Println(s.Games())
+	l := NewLexer(strings.NewReader(string(b)))
+	l.Lex()
+	fmt.Printf("%v", l.Tokens())
+	// var s PGNFileScanner
+	// s.Scan(strings.NewReader(string(b)))
+	// fmt.Println(s.Games())
 }

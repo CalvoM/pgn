@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "pgn"
+version = "0.1.0"
+description = "A PGN File DB server and Cli tool"
+authors = ["Calvin Mwadime Makokha <mwadimemakokha@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+requests = "^2.32.3"
+click = "^8.1.7"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

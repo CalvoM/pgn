@@ -1,8 +1,9 @@
-from pathlib import Path
 import sys
+from pathlib import Path
+
 import click
 
-from pgn.file_processing.lexer import Lexer
+from .file_processing import Lexer, MoveToken, Parser
 
 
 @click.command()
@@ -15,7 +16,21 @@ def cli(file: str, url: str):
         sys.exit(1)
     with open(file) as f:
         content = f.read()
-    Lexer(content).lex()
+    toks = Lexer(content).lex()
+    p = Parser(toks)
+    if toks:
+        for tok in toks:
+            if isinstance(tok, MoveToken):
+                print(
+                    tok.ttype,
+                    tok.tvalue,
+                    tok.twhitemove,
+                    tok.twhitemovecomment,
+                    tok.tblackmove,
+                    tok.tblackmovecomment,
+                )
+            else:
+                print(tok.ttype, tok.tvalue)
 
 
 def main():

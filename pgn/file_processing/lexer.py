@@ -6,13 +6,13 @@ from typing import override
 from pgn.exceptions import PGNLexerError
 
 movetext_pattern = re.compile(
-    r"(?P<movenumber>\d+)"
-    r"(?P<dots>\.{0,3})"
-    r"(?P<whitemove>\s*\S+)"
-    r"(?P<whitecomment>\s*\{[^}]*\})?\s*"
-    r"(?P<blackmove>\S+)"
-    r"(?P<blackcomment>\s*\{[^}]*\})?"
+    r"(?P<movenumber>\d+\.{1,3})\s*"
+    r"(?P<whitemove>[a-hxRNBQKO1-8#+=]{2,}+|O-O-O|O-O)?\s*"
+    r"(?P<whitecomment>\{[^}]*\})?\s*"
+    r"(?P<blackmove>[a-hxRNBQKO1-8#+=]{2,}+|O-O-O|O-O)?\s*"
+    r"(?P<blackcomment>\{[^}]*\})?\s*"
 )
+game_term_pattern = re.compile(r"(?P<gameterm>\*|0-1|1/2-1/2|1-0)")
 
 
 class TokenType(Enum):
@@ -23,14 +23,10 @@ class TokenType(Enum):
     STAR = auto()
     LSQB = auto()
     RSQB = auto()
-    LPAR = auto()
-    RPAR = auto()
     TAGNAME = auto()
     TAGVALUE = auto()
     MOVENUMBER = auto()
-    FILE = auto()
-    RANK = auto()
-    PIECE = auto()
+    GAMETERM = auto()
     CASTLEKINGSIDE = auto()
     CASTLEQUEENSIDE = auto()
     DRAW = auto()
@@ -55,13 +51,20 @@ class Position:
         return f"Position({self.linenumber}, {self.column})"
 
 
-@dataclass(frozen=True)
+@dataclass
 class Token:
     tvalue: str
     ttype: TokenType
     tpos: Position
-    tmovecomment: str | None = None
+
+
+@dataclass
+class MoveToken(Token):
+    twhitemovecomment: str | None = None
+    tblackmovecomment: str | None = None
     tmovesuffix: str | None = None
+    twhitemove: str | None = None
+    tblackmove: str | None = None
 
 
 class Lexer:
@@ -81,13 +84,13 @@ class Lexer:
                     self._cr_pos()
                     if self.peek() == "1":
                         self.lex_movetext()
-                        break
+                        # break
                 case None:
+                    print("peek is None")
                     break
                 case _:
                     c = self.read()
                     # print(c, end="")
-        # print(self._tokens, len(self._tokens))
         return self._tokens
 
     def lex_tag_pair(self):
@@ -151,19 +154,43 @@ class Lexer:
                 self._buffer[self._buffer_pos :].replace("\n", " ")
             )
             if match:
-                print(match.groups())
-                data_range = match.end()
-                if len(match.group("dots")) == 3:
-                    data_range = (
-                        len(match.group("movenumber"))
-                        + len(match.group("dots"))
-                        + len(match.group("whitemove"))
+                movenumber = match.groupdict().get("movenumber")
+                tok: MoveToken
+                if movenumber:
+                    tok = MoveToken(
+                        movenumber,
+                        TokenType.MOVENUMBER,
+                        Position(self._loc.linenumber, self._loc.column),
                     )
-                    if match.group("whitecomment"):
-                        data_range += len(match.group("whitecomment"))
-                self._buffer_pos += data_range + 1
+                whitemove = match.groupdict().get("whitemove")
+                if whitemove:
+                    tok.twhitemove = whitemove
+                whitecomment = match.groupdict().get("whitecomment")
+                if whitecomment:
+                    tok.twhitemovecomment = whitecomment
+                blackmove = match.groupdict().get("blackmove")
+                if blackmove:
+                    tok.tblackmove = blackmove
+                blackcomment = match.groupdict().get("blackcomment")
+                if blackcomment:
+                    tok.blackcomment = blackcomment
+                self._tokens.append(tok)
+                self._buffer_pos += match.end()
             else:
-                print(match)
+                term = game_term_pattern.match(
+                    self._buffer[self._buffer_pos :].replace("\n", " ")
+                )
+                if term:
+                    gameterm = term.groupdict().get("gameterm")
+                    if gameterm:
+                        self._tokens.append(
+                            Token(
+                                gameterm,
+                                TokenType.GAMETERM,
+                                Position(self._loc.linenumber, self._loc.column),
+                            )
+                        )
+
                 break
 
     def read(self) -> str | None:

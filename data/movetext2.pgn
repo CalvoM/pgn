@@ -1,0 +1,28 @@
+[Event "World Championship"]
+[Site "London"]
+[Date "2023.11.01"]
+[Round "1"]
+[White "Magnus Carlsen"]
+[Black "Ian Nepomniachtchi"]
+[Result "1-0"]
+
+1. e4 {White starts with a strong opening} e5 {Black mirrors the move}
+2. Nf3 {Developing a knight to attack e5} Nc6 {Defending the pawn}
+3. Bb5 {Ruy Lopez opening} a6 {Challenging the bishop}
+4... Nf6 {Black develops the knight to pressure e4}
+5. O-O {White castles} Be7 {Black prepares to castle}
+6. Re1 {White reinforces the center} b5 {Black gains queenside space}
+7. Bb3 {Retreating the bishop} d6 {Black strengthens the center}
+8... O-O {Black castles kingside}
+9. c3 {Preparing to push d4} Nb8 {Black repositions for a long-term plan}
+10. d4 {A central break by White} Nbd7 {Black solidifies the knight}
+11. Nbd2 {White reinforces the knight on d4} c5 {Black challenges the center}
+12... exd4 {Black captures in the center}
+13. cxd4 {White recaptures the pawn} Re8 {Black places the rook on an open file}
+14. a4 {White expands on the queenside} Bf8 {Black moves the bishop to safety}
+15. axb5 {White opens the a-file} axb5 {Black recaptures}
+16. Bc2 {White aims for the center} Qb6 {Black attacks the b-pawn}
+17. Nf1 {White plans to reroute the knight} cxd4 {Black captures in the center}
+18. Nxd4 {White recaptures, dominating the center} Bb7 {Black places the bishop on the long diagonal}
+
+1-0

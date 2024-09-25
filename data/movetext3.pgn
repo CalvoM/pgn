@@ -1,0 +1,53 @@
+[Event "World Championship"]
+[Site "London"]
+[Date "2023.11.01"]
+[Round "1"]
+[White "Magnus Carlsen"]
+[Black "Ian Nepomniachtchi"]
+[Result "1-0"]
+
+1. e4 {White opens with a central pawn push} e5 {Black responds symmetrically} 
+2. Nf3 {White attacks the e5 pawn} Nc6 {Black defends the pawn} 
+3. Bb5 {Ruy Lopez, challenging the knight} a6 {Black attacks the bishop} 
+4... Nf6 {Black develops and attacks the e4 pawn} 
+5. O-O {White castles, securing the king} Be7 {Black prepares to castle} 
+6. Re1 {White reinforces the e4 pawn} b5 {Black expands on the queenside} 
+7. Bb3 {White retreats the bishop} O-O {Black castles kingside} 
+8... d6 {Black strengthens the center} 
+9. h3 {White prevents Black from placing a knight or bishop on g4} Nb8 {Black reroutes the knight to prepare for c5} 
+10. d4 {White breaks the center} Nbd7 {Black develops the knight and defends the center} 
+11. Nbd2 {White develops another knight} c5 {Black challenges the center} 
+12... dxe5 {Black recaptures the pawn} 
+13. Bc2 {White develops and protects the e4 pawn} Qc7 {Black places the queen on a powerful file} 
+14. Nf1 {White aims to reroute the knight to g3} c4 {Black pushes forward aggressively on the queenside} 
+15. Ne3 {White brings the knight toward the center} Nc5 {Black places the knight on a strong square} 
+16. Nf5 {White attacks the d6 square} Bxf5 {Black eliminates the aggressive knight} 
+17. exf5 {White recaptures with the pawn, opening the e-file} Rfe8 {Black places the rook on a central file} 
+18. g4 {White prepares for a kingside attack} Rad8 {Black develops the other rook} 
+19. Qe2 {White protects the pawn on e5 and aligns with the e-file} Bf8 {Black repositions the bishop defensively} 
+20. g5 {White tries to push for a kingside attack} Nd5 {Black centralizes the knight} 
+21. Be3 {White develops the bishop} Nxe3 {Black exchanges the knight for the bishop} 
+22. Qxe3 {White recaptures with the queen} e4 {Black aggressively pushes the pawn} 
+23. Nd4 {White blocks the pawn and centralizes the knight} Nd3 {Black moves the knight to an advanced position} 
+24... Bc5 {Black brings the bishop to a strong diagonal} 
+25. Rd1 {White places the rook on the open file} Re5 {Black reinforces the e4 pawn} 
+26. Bxd3 {White captures the knight} cxd3 {Black recaptures with the pawn} 
+27. Ree1 {White places pressure on the d3 pawn} Rde8 {Black prepares to double rooks} 
+28. f6 {White sacrifices a pawn to open lines for the attack} g6 {Black defends solidly} 
+29. Qg3 {White prepares to threaten g7} h6 {Black stops White's attack on the kingside} 
+30... h5 {Black locks the position on the kingside} 
+31. f4 {White tries to open up the center} Bxd4 {Black captures on d4 to release pressure} 
+32. cxd4 {White recaptures} Rd5 {Black activates the rook on the d-file} 
+33. Rf1 {White doubles rooks to put pressure on f5} Rc8 {Black brings the other rook into play} 
+34. f5 {White pushes aggressively} Rc2 {Black counterattacks by invading the second rank} 
+35. Qb8+ {White gives a check with the queen} Kh7 {Black moves the king to safety} 
+36. Qf8 {White brings the queen closer to the attack} Qc7 {Black protects the c7 square} 
+37. Rf2 {White prepares to bring another rook into play} Rxf2 {Black exchanges rooks to ease the pressure} 
+38. Kxf2 {White recaptures} e3+ {Black attacks with a check} 
+39. Kf3 {White moves the king forward} e2 {Black pushes a dangerous passed pawn} 
+40. Rde1 {White blocks the passed pawn} Rxf5+ {Black sacrifices the rook for the f5 pawn} 
+41. Kg2 {White moves the king} Qc6+ {Black checks with the queen} 
+42. Kg1 {White retreats the king} Qf3 {Black places more pressure on the position} 
+43. Qg7# {White checkmates!}
+
+1-0

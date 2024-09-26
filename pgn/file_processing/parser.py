@@ -2,7 +2,7 @@ from pgn.exceptions import PGNParserError
 from pgn.game import PGNGame
 from pgn.game.game import PGNMove
 
-from .lexer import Token, TokenType
+from .lexer import MoveToken, Token, TokenType
 
 
 class Parser:
@@ -28,11 +28,12 @@ class Parser:
                     raise PGNParserError()
                 tag_value = token_tvalue.tvalue
                 game.add_tag(tag_name, tag_value)
-            elif token.ttype == TokenType.MOVENUMBER:
+            elif token.ttype == TokenType.MOVENUMBER and isinstance(token, MoveToken):
                 move_token = token
                 while True:
                     mod_black_comment = None
                     mod_white_comment = None
+                    print(move_token)
                     if move_token.twhitemovecomment:
                         mod_white_comment = move_token.twhitemovecomment[1:-1]
                     if move_token.tblackmovecomment:

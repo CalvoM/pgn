@@ -16,15 +16,10 @@ def cli(file: str, url: str):
     with open(file) as f:
         content = f.read()
     toks = Lexer(content).lex()
-    print(toks)
     if toks:
         p = Parser(toks)
         games = p.parse()
-        for game in games:
-            print("======================================")
-            for k, v in vars(game).items():
-                print(k, v)
-            print("======================================")
+        print(len(games))
 
 
 def main():

@@ -86,11 +86,9 @@ class Lexer:
                         self.lex_movetext()
                         # break
                 case None:
-                    print("peek is None")
                     break
                 case _:
-                    c = self.read()
-                    # print(c, end="")
+                    _ = self.read()
         return self._tokens
 
     def lex_tag_pair(self):

@@ -152,6 +152,7 @@ class Lexer:
                 self._buffer[self._buffer_pos :].replace("\n", " ")
             )
             if match:
+                print(match.groups(), self._buffer[self._buffer_pos :])
                 movenumber = match.groupdict().get("movenumber")
                 tok: MoveToken
                 if movenumber:

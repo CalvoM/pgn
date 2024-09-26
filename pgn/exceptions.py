@@ -4,3 +4,7 @@ class PGNError(Exception):
 
 class PGNLexerError(PGNError):
     pass
+
+
+class PGNParserError(PGNError):
+    pass

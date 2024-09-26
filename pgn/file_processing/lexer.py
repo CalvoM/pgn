@@ -7,7 +7,7 @@ from pgn.exceptions import PGNLexerError
 
 movetext_pattern = re.compile(
     r"(?P<movenumber>\d+\.{1,3})\s*"
-    r"(?P<whitemove>[a-hxRNBQKO1-8#+=]{2,}+|O-O-O|O-O)?\s*"
+    r"(?P<whitemove>[a-hxRNBQKO1-8#+=]{2,}+|O-O-O[#+]?|O-O[#+]?)?\s*"
     r"(?P<whitecomment>\{[^}]*\})?\s*"
     r"(?P<blackmove>[a-hxRNBQKO1-8#+=]{2,}+|O-O-O|O-O)?\s*"
     r"(?P<blackcomment>\{[^}]*\})?\s*"
@@ -152,7 +152,6 @@ class Lexer:
                 self._buffer[self._buffer_pos :].replace("\n", " ")
             )
             if match:
-                print(match.groups(), self._buffer[self._buffer_pos :])
                 movenumber = match.groupdict().get("movenumber")
                 tok: MoveToken
                 if movenumber:

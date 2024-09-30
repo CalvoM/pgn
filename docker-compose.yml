@@ -1,0 +1,17 @@
+services:
+  pg_server:
+    image: "postgres:latest"
+    container_name: "past_chess_pg"
+    ports:
+      - "5431:5432"
+    env_file:
+      - .env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+networks:
+  default:
+    external: true
+    name: past-chess-net
+volumes:
+  pgdata:

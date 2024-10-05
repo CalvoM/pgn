@@ -1,3 +1,4 @@
+import json
 from collections import defaultdict
 from typing import override
 
@@ -55,19 +56,19 @@ class PGNMove:
         return self._move_number
 
     @property
-    def white_move(self):
+    def white_move(self) -> str | None:
         return self._white_move
 
     @property
-    def white_move_comment(self):
+    def white_move_comment(self) -> str | None:
         return self._white_move_comment
 
     @property
-    def black_move(self):
+    def black_move(self) -> str | None:
         return self._black_move
 
     @property
-    def black_move_comment(self):
+    def black_move_comment(self) -> str | None:
         return self._black_move_comment
 
     @override
@@ -82,6 +83,7 @@ class PGNGame:
 
     def add_tag(self, tag_name: str, tag_value: str):
         setattr(self, tag_name, tag_value)
+        self._tags[tag_name] = tag_value
 
     def add_move(self, move: PGNMove):
         self._moves.append(move)
@@ -89,6 +91,25 @@ class PGNGame:
     @property
     def moves(self) -> list[PGNMove]:
         return self._moves
+
+    @property
+    def tag_pairs(self) -> dict[str, None | str]:
+        return self._tags
+
+    @property
+    def white_moves(self) -> str | None:
+        return " ".join(
+            [move.white_move for move in self._moves if move and move.white_move]
+        )
+
+    @property
+    def black_moves(self) -> str | None:
+        return " ".join(
+            [move.black_move for move in self._moves if move and move.black_move]
+        )
+
+    def to_json(self):
+        return json.dumps(self, default=lambda o: o.__dict__)
 
     def __getattr__(self, name: str):
         if name in valid_pgn_tags:

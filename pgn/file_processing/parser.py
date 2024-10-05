@@ -33,7 +33,6 @@ class Parser:
                 while True:
                     mod_black_comment = None
                     mod_white_comment = None
-                    print(move_token)
                     if move_token.twhitemovecomment:
                         mod_white_comment = move_token.twhitemovecomment[1:-1]
                     if move_token.tblackmovecomment:

@@ -8,6 +8,17 @@ services:
       - .env
     volumes:
       - pgdata:/var/lib/postgresql/data
+  rabbitmq_server:
+    image: "rabbitmq:4.0.2-management"
+    container_name: "past_chess_rmq"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER} # Load from .env
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS} # Load from .env
+    volumes:
+      - rabbitmqdata:/var/lib/rabbitmq/data
 
 networks:
   default:
@@ -15,3 +26,4 @@ networks:
     name: past-chess-net
 volumes:
   pgdata:
+  rabbitmqdata:

@@ -131,3 +131,20 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Celery App Config
+celery_user = os.getenv("RABBITMQ_DEFAULT_USER")
+celery_pass = os.getenv("RABBITMQ_DEFAULT_PASS")
+net_host = os.getenv("DB_HOST")
+CELERY_BROKER_URL = f"amqp://{celery_user}:{celery_pass}@{net_host}:5672/"
+CELERY_RESULT_BACKEND = "rpc://"
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_ACCEPT_CONTENT = ["json", "pickle"]
+CELERY_RESULT_ACCEPT_CONTENT = ["json", "pickle"]
+CELERY_TASK_TRACK_STARTED = True
+CELERY_IGNORE_RESULT = False
+
+LOGGING = {
+    "version": 1,  # the dictConfig format version
+    "disable_existing_loggers": False,  # retain the default loggers
+}

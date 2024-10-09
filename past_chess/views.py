@@ -1,42 +1,31 @@
-import json
-
+# pyright:reportUnnecessaryComparison=false,reportArgumentType=false
 from celery.result import AsyncResult
 from django import forms
-from django.http import HttpRequest, HttpResponse, JsonResponse
-from django.shortcuts import render
+from django.http import HttpRequest, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_GET, require_POST
 
 from pgn_web import celery_app
 
 from .forms import UploadFileForm
 
 
-def home(request: HttpRequest):
-    return render(request, "past_chess/index.html")
-
-
 @csrf_exempt
+@require_POST
 def upload_game_file(request: HttpRequest):
-    if request.method == "POST":
-        form: forms.Form = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            task_res = form.parse_uploaded_file(request.FILES["file"])
-            return HttpResponse(task_res.task_id)
-    else:
-        return HttpResponse("No Bye")
+    form: forms.Form = UploadFileForm(request.POST, request.FILES)
+    if form.is_valid():
+        uploaded_file = request.FILES.get("file")
+        task_res: AsyncResult = form.parse_uploaded_file(uploaded_file)
+        ret_task: dict[str, str | None] = {"tracking_id": task_res.task_id}
+        return JsonResponse(ret_task)
 
 
+@require_GET
 def check_upload_status(request: HttpRequest, task_id: str):
-    if request.method == "GET":
-        response: AsyncResult = celery_app.AsyncResult(task_id)
-        return render(
-            request,
-            "past_chess/upload_status.html",
-            {
-                "status": response.state,
-                "success": response.successful(),
-                "value": response.result,
-            },
-        )
-    else:
-        return HttpResponse("No bye")
+    response: AsyncResult = celery_app.AsyncResult(task_id)
+    ret_status: dict[str, str | bool] = {
+        "status": response.status,
+        "success": response.successful(),
+    }
+    return JsonResponse(ret_status)

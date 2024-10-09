@@ -1,5 +1,8 @@
+from typing import Any
+
+from celery.result import AsyncResult
 from django import forms
-from django.utils.datastructures import MultiValueDict
+from django.core.files.uploadedfile import UploadedFile
 
 from past_chess.tasks import parse_uploaded_file_task
 
@@ -7,6 +10,6 @@ from past_chess.tasks import parse_uploaded_file_task
 class UploadFileForm(forms.Form):
     file = forms.FileField()
 
-    def parse_uploaded_file(self, file: MultiValueDict):
-        task_id = parse_uploaded_file_task.delay(list(file.chunks()))
-        return task_id
+    def parse_uploaded_file(self, file: UploadedFile) -> AsyncResult:
+        task_res: AsyncResult = parse_uploaded_file_task.delay(list(file.chunks()))
+        return task_res

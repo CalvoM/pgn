@@ -1,6 +1,5 @@
-import json
+import logging
 from datetime import datetime
-from typing import Any, Generator
 
 from celery import shared_task
 
@@ -8,14 +7,17 @@ from past_chess.models import Game
 from pgn.file_processing import Lexer, Parser
 from pgn.game import PGNGame
 
+LOG = logging.getLogger(__name__)
+
 date_tag_template = "%Y.%m.%d"
 
 
 @shared_task
-def parse_uploaded_file_task(file_content_gen: list[Any]):
+def parse_uploaded_file_task(file_content_gen: list[str | None]):
     data: str = ""
     for chunk in file_content_gen:
-        data += chunk.decode()
+        if chunk:
+            data += chunk.decode()
     tokens = Lexer(data).lex()
     games: list[PGNGame] | None = None
     if tokens:
@@ -33,7 +35,7 @@ def parse_uploaded_file_task(file_content_gen: list[Any]):
                 white=game.White,
                 black=game.Black,
                 result=game.Result,
-                tag_pairs=json.dumps(game.tag_pairs),
+                tag_pairs=game.tag_pairs,
                 white_moves=game.white_moves,
                 black_moves=game.black_moves,
             )

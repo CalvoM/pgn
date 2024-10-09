@@ -1,3 +1,4 @@
+from django.contrib.postgres.fields import HStoreField
 from django.db import models
 
 
@@ -15,6 +16,6 @@ class Game(models.Model):
     white = models.CharField(max_length=200, null=True, blank=True)
     black = models.CharField(max_length=200, null=True, blank=True)
     result = models.CharField(max_length=200, null=True, blank=True)
-    tag_pairs = models.JSONField(null=True, blank=True)
+    tag_pairs = HStoreField(null=True, blank=True)
     white_moves = models.CharField(max_length=1024, null=True, blank=True)
     black_moves = models.CharField(max_length=1024, null=True, blank=True)

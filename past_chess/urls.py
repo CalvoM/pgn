@@ -9,5 +9,4 @@ urlpatterns = [
         views.check_upload_status,
         name="upload_task_status",
     ),
-    path("", views.home, name="home"),
 ]

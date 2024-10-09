@@ -30,7 +30,7 @@ SECRET_KEY = "a';.ljado;*rc*tno3m#_e(&rk_qe8b$@z$qv%=tw7_nz)lo*5x)5v&rqf"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "past_chess.apps.PastChessConfig",
+    "django.contrib.postgres",
 ]
 
 MIDDLEWARE = [

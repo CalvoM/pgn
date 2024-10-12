@@ -3,6 +3,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    # path("games/"),
+    path("games/filtered-results", views.filter_gamees, name="filter_games"),
     path("upload/", views.upload_game_file, name="upload"),
     path(
         "upload/status/<str:task_id>",

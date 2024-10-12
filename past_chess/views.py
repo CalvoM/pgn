@@ -29,3 +29,10 @@ def check_upload_status(request: HttpRequest, task_id: str):
         "success": response.successful(),
     }
     return JsonResponse(ret_status)
+
+
+@csrf_exempt
+@require_POST
+def filter_gamees(request: HttpRequest):
+    print(request.body)
+    return JsonResponse([1, 2, 3], safe=False)

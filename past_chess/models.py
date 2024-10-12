@@ -1,5 +1,15 @@
+from typing import override
+
 from django.contrib.postgres.fields import HStoreField
+from django.core.serializers.json import Serializer
 from django.db import models
+
+
+class ModelJsonSerializer(Serializer):
+    @override
+    def get_dump_object(self, obj):
+        self._current[obj._meta.pk.name] = obj._get_pk_val()
+        return self._current
 
 
 class Game(models.Model):

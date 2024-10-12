@@ -37,7 +37,9 @@ def parse_uploaded_file_task(file_content_gen: list[str | None]):
                 result=game.Result,
                 tag_pairs=game.tag_pairs,
                 white_moves=game.white_moves,
+                white_moves_comments=game.white_comments,
                 black_moves=game.black_moves,
+                black_moves_comments=game.black_comments,
             )
             g.save()
     return True

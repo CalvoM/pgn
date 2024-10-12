@@ -103,6 +103,26 @@ class PGNGame:
         )
 
     @property
+    def white_comments(self) -> str | None:
+        comments: list[str] = list()
+        for move in self._moves:
+            if self._moves and move.white_move_comment:
+                comments.append(move.white_move_comment)
+            elif move and move.white_move_comment is None:
+                comments.append("~")
+        return " ".join(comments)
+
+    @property
+    def black_comments(self) -> str | None:
+        comments: list[str] = list()
+        for move in self._moves:
+            if self._moves and move.black_move_comment:
+                comments.append(move.black_move_comment)
+            elif move and move.black_move_comment is None:
+                comments.append("~")
+        return " ".join(comments)
+
+    @property
     def black_moves(self) -> str | None:
         return " ".join(
             [move.black_move for move in self._moves if move and move.black_move]

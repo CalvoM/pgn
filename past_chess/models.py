@@ -18,4 +18,6 @@ class Game(models.Model):
     result = models.CharField(max_length=200, null=True, blank=True)
     tag_pairs = HStoreField(null=True, blank=True)
     white_moves = models.CharField(max_length=1024, null=True, blank=True)
+    white_moves_comments = models.CharField(max_length=10240, null=True, blank=True)
     black_moves = models.CharField(max_length=1024, null=True, blank=True)
+    black_moves_comments = models.CharField(max_length=10240, null=True, blank=True)

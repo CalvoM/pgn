@@ -1,2 +1,4 @@
 .env
 .coverage
+.tox/
+__pycache__/

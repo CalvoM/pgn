@@ -114,7 +114,11 @@ class Lexer:
 
     def lex_tag_name(self):
         tag_name: str = ""
-        while not (self.peek()) == '"':
+        while (
+            not (self.peek()) == '"'
+            and not (self.peek()) == "\n"
+            and not (self.peek()) == "]"
+        ):
             if data := self.read():
                 tag_name += data
                 self._incr_pos_column()

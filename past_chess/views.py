@@ -4,6 +4,7 @@ import json
 from celery.result import AsyncResult
 from django import forms
 from django.core.serializers import serialize
+from django.db.models.query import QuerySet
 from django.http import HttpRequest, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_POST
@@ -26,7 +27,7 @@ def upload_game_file(request: HttpRequest):
 
 
 @require_GET
-def check_upload_status(request: HttpRequest, task_id: str):
+def check_upload_status(_request: HttpRequest, task_id: str):
     response: AsyncResult = celery_app.AsyncResult(task_id)
     ret_status: dict[str, str | bool] = {
         "status": response.status,
@@ -37,7 +38,18 @@ def check_upload_status(request: HttpRequest, task_id: str):
 
 @csrf_exempt
 @require_GET
-def filter_gamees(request: HttpRequest):
+def filter_games(request: HttpRequest):
+    findings = _filter_games(request)
+    ret = ModelJsonSerializer().serialize(
+        queryset=findings,
+        fields=("event", "site", "white", "black"),
+        use_natural_foreign_keys=True,
+        use_natural_primary_keys=True,
+    )
+    return JsonResponse(json.loads(ret), safe=False)
+
+
+def _filter_games(request: HttpRequest) -> QuerySet:
     findings = Game.objects.all()
     white_player = request.GET.get("white")
     if white_player:
@@ -60,12 +72,4 @@ def filter_gamees(request: HttpRequest):
     result = request.GET.get("result")
     if result:
         findings = findings.filter(result=result)
-
-    serialize
-    ret = ModelJsonSerializer().serialize(
-        queryset=findings,
-        fields=("event", "site", "white", "black"),
-        use_natural_foreign_keys=True,
-        use_natural_primary_keys=True,
-    )
-    return JsonResponse(json.loads(ret), safe=False)
+    return findings
